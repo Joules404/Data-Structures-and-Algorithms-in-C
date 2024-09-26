@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int counter = 0;
+int index = 0;
 int list[MAX];
 
 
@@ -20,6 +20,7 @@ struct node* create(int val){
     node->value =val;
     node->left_ptr = NULL;
     node->right_ptr = NULL;
+    return node;
 }
 
 struct node* create_recursively(){
@@ -38,7 +39,7 @@ struct node* create_recursively(){
     if(val == -1) return NULL;
     else printf("Node will contain value: %d\n",val);
     node->value = val;
-    counter++;
+    list[index++] = val;
     printf("Now entering value for left child of current node %d\n",node->value);
     node->left_ptr = create_recursively();
     printf("Now entering value for right child of current node %d\n",node->value);
@@ -48,12 +49,37 @@ struct node* create_recursively(){
 
 
 
-void traverse(struct node* node){
+void traverse1(struct node* node){
     if(!node) return;
     printf("%d ",node->value);
-    traverse(node->left_ptr);
-    traverse(node->right_ptr);
-    // printf("")
+    traverse1(node->left_ptr);
+    traverse1(node->right_ptr);
+    /*
+    after running it this would be preorder traversal
+    */
+}
+
+
+void traverse2(struct node* node){
+    if(!node) return;
+    traverse2(node->left_ptr);
+    printf("%d ",node->value);
+    traverse2(node->right_ptr);
+    /*
+    after running it this would be inorder traversal
+    */
+}
+
+
+void traverse3(struct node* node){
+    if(!node) return;
+    traverse3(node->left_ptr);
+    traverse3(node->right_ptr);
+    printf("%d ",node->value);
+
+    /*
+    after running it this would be postorder traversal
+    */
 }
 
 int main(int argc, char** argv){
@@ -72,21 +98,26 @@ int main(int argc, char** argv){
     root->left_ptr = root_lc;
     root->right_ptr = root_rc;
 
-    printf("The root value is %d\n",root->value);
-    printf("The root_lc value is %d\n",root->left_ptr->value);
-    printf("The root_rc value is %d\n",root->right_ptr->value);
+    // printf("The root value is %d\n",root->value);
+    // printf("The root_lc value is %d\n",root->left_ptr->value);
+    // printf("The root_rc value is %d\n",root->right_ptr->value);
 
     /////////////////////////////////////////////////////////////////////////////////////////
 
     struct node* root_r = create_recursively();
-    printf("There are a total of %d nodes in the tree.\n",counter);
+    printf("There are a total of %d nodes in the tree.\n",index);
 
-    for(int i = 0 ; i < counter; i++){
-        printf("%d ",list[i]);
-    }
-    printf("\n");
+    // for(int i = 0 ; i < index; i++){
+    //     printf("%d ",list[i]);
+    // }
+    // printf("\n");
 
-    traverse(root);
+    // traverse(root);
+
+    traverse1(root_r);printf("\n");
+    traverse2(root_r);printf("\n");
+    traverse3(root_r);printf("\n");
+
 
     return 0;
 }
