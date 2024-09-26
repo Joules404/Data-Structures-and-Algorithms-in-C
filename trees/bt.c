@@ -49,7 +49,7 @@ struct node* create_recursively(){
 
 
 
-void traverse1(struct node* node){
+void preorder_traversal(struct node* node){
     if(!node) return;
     printf("%d ",node->value);
     traverse1(node->left_ptr);
@@ -60,7 +60,7 @@ void traverse1(struct node* node){
 }
 
 
-void traverse2(struct node* node){
+void inorder_traversal(struct node* node){
     if(!node) return;
     traverse2(node->left_ptr);
     printf("%d ",node->value);
@@ -71,7 +71,7 @@ void traverse2(struct node* node){
 }
 
 
-void traverse3(struct node* node){
+void postorder_traversal(struct node* node){
     if(!node) return;
     traverse3(node->left_ptr);
     traverse3(node->right_ptr);
@@ -114,9 +114,9 @@ int main(int argc, char** argv){
 
     // traverse(root);
 
-    traverse1(root_r);printf("\n");
-    traverse2(root_r);printf("\n");
-    traverse3(root_r);printf("\n");
+    preorder_traversal(root_r);printf("\n");
+    inorder_traversal(root_r);printf("\n");
+    postorder_traversal(root_r);printf("\n");
 
 
     return 0;
